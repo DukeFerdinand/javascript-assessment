@@ -1,6 +1,6 @@
 # My Javascript Assessment Response
 
-I decided to add ES6 support to the application via Babel in order to give myself an easier time writing the application.
+I decided to add ES6 support to the application via Babel becuase I'm trying to get used to ES6 everywhere
 
 ### To run the code: 
 
