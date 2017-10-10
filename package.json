@@ -1,0 +1,36 @@
+{
+  "name": "js-assessment",
+  "version": "1.0.0",
+  "description": "Douglass Hooker's JS assessment for Freedom Driven LLC",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "compile": "babel app.js --out-file app-compiled.js",
+    "dev": "babel app.js --out-file app-compiled.js --watch",
+    "pretest": "npm run compile",
+    "prepublish": "npm run compile"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kiamatt/freedomdriven_javascript_assessment.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/kiamatt/freedomdriven_javascript_assessment/issues"
+  },
+  "homepage": "https://github.com/kiamatt/freedomdriven_javascript_assessment#readme",
+  "dependencies": {
+    "babel-compile": "^2.0.0"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-preset-es2015": "^6.24.1"
+  },
+  "babel": {
+    "presets": [
+      "babel-preset-es2015"
+    ],
+    "babelrc": false
+  }
+}

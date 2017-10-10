@@ -1,0 +1,11 @@
+.dropdown li {
+    cursor: pointer
+}
+
+#name {
+    text-decoration: underline;
+}
+
+.day {
+    margin-bottom: 5vh;
+}
