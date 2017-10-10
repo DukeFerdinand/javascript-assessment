@@ -63,47 +63,50 @@
 //---------------------------
 //  Place Code Here
 //---------------------------
-const OpenWeather = {
+class OpenWeather  {
+    constructor() {
+        this.state = {
+            //Using provided API key        
+            appid: '8690974851e3f54d7ce53bc8c6738558',
+    
+            /*
+            *Default City so the user can see 
+            *what the app does before using it
+            */
+            currentCity: 'San Antonio',
+            
+            //Defaults weather to empty object        
+            selectedCityWeather: {},
+    
+            cityArray : [
+                'New York',
+                'Austin',
+                'Houston'
+            ],
+            unitObjects: [
+                {name: 'imperial', unitSymbol: 'F', opposite: 'metric'},
+                {name: 'metric', unitSymbol:'C', opposite: 'imperial'}
+    
+            ],
+            unitSystem: 'imperial',
+            unitSymbol: 'F',
+            //Added day labels for ease of use
+            days: ['Sunday','Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']
+        };
+    }
     //Simple state object
-    state: {
-        //Using provided API key        
-        appid: '8690974851e3f54d7ce53bc8c6738558',
 
-        /*
-        *Default City so the user can see 
-        *what the app does before using it
-        */
-        currentCity: 'San Antonio',
-        
-        //Defaults weather to empty object        
-        selectedCityWeather: {},
-
-        cityArray : [
-            'New York',
-            'Austin',
-            'Houston'
-        ],
-        unitObjects: [
-            {name: 'imperial', unitSymbol: 'F', opposite: 'metric'},
-            {name: 'metric', unitSymbol:'C', opposite: 'imperial'}
-
-        ],
-        unitSystem: 'imperial',
-        unitSymbol: 'F',
-        //Added day labels for ease of use
-        days: ['Sunday','Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']
-    },
 
     //Clears any stored data and starts the loading spinner
     clearCurrentWeather() {
         this.selectedCityWeather = {};
         $('#main.row').empty().prepend('<img class="img-responsive center-block" src="./images/ajax-loader.gif">');
-    },
+    }
 
     //Clears row of loading spinner
     clearLoadingSpinner() {
         $('#main.row').empty();
-    },
+    }
 
     //Gets the weather using set params
     getCityWeather(city = this.state.currentCity) {
@@ -113,7 +116,7 @@ const OpenWeather = {
                 `&q=${city}&mode=json&units=${this.state.unitSystem}&cnt=5`)
         .done(results => this.setCityWeather(results))
         .fail(results => this.renderError(results.responseJSON));
-    },
+    }
 
     //To aid in separating concerns and Quality of Life, separated all these functions
     setCityWeather(results, error) {
@@ -127,7 +130,7 @@ const OpenWeather = {
         } else {
             this.renderError(error);
         }
-    },
+    }
 
     //Capitalizes the first letter, adds a period to the end
     grammarize(description) {        
@@ -136,7 +139,7 @@ const OpenWeather = {
         grammarizedDesc.push('.');
 
         return grammarizedDesc.join('');
-    },
+    }
 
     //Takes the array of daily info and creates a DOM element for each
     mapDailyWeatherToHTML(dailyWeatherArr, ) {
@@ -162,7 +165,7 @@ const OpenWeather = {
                 `<h4 class='text-center'>${averageTemp} &#176;${this.state.unitSymbol}</h4>`
             );
         })
-    },
+    }
 
     /*
     * Almost tricked me, temps.min and temps.max
@@ -172,13 +175,13 @@ const OpenWeather = {
     averageDailyTemp(dailyTemp) {
         let dt = dailyTemp;
         return ((dt.day + dt.eve + dt.morn + dt.night)/4).toFixed(0);
-    },
+    }
 
     renderWeatherData(weatherData) {
         this.clearLoadingSpinner();
         $('#main.row').prepend(`<h2 class='text-center'>${weatherData.city.name}</h2>`)
         this.mapDailyWeatherToHTML(weatherData.list)
-    },
+    }
 
     renderError(error) {
         this.clearLoadingSpinner();
@@ -186,7 +189,7 @@ const OpenWeather = {
             `<h1>Sorry, that's an error :(</h1>` +
             `<p>Details: ${error.message}</p>`
         );
-    },
+    }
 
     //Handles Changing the system used from Imperial to Metric and vice-versa
     changeTempSystem() {
@@ -197,7 +200,7 @@ const OpenWeather = {
                 this.getCityWeather();
             })
         })
-    },
+    }
 
     renderDropdown() {
         //'this' binding seems to make event listeners play nicely with jQuery
@@ -231,7 +234,7 @@ const OpenWeather = {
                 this.getCityWeather(city)
             })
         })
-    },
+    }
 
     init() {
         this.renderDropdown();
@@ -241,7 +244,8 @@ const OpenWeather = {
     }
 }
 //Initial call to startup the app
-OpenWeather.init();
+const Weather = new OpenWeather;
+Weather.init();
 
 //---------------------------
 //  End of Code
