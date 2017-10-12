@@ -148,7 +148,8 @@ class OpenWeather  {
 
         dailyWeatherArr.forEach((day, index) => {
             let date = new Date();
-            const dayIndex = date.getDay() + index
+            //Changed this to actually show correct date by adding % 7 to the end
+            const dayIndex = (date.getDay() + index ) % 7
 
             $('#main.row').append(`<div id='day${index}' class='day col-sm-4'>`)
             let averageTemp = this.averageDailyTemp(day.temp);
